@@ -1,8 +1,8 @@
-# Taxonomy-of-Real-Faults-in-Deep-Learning-Sysatems
+# Taxonomy-of-Faults-in-Deep-Learning-Related-Jobs
 
 ## **Preface** ##
 
-*The goal of this summary is to build a taxonomy of real faults in deep learning(DL) systems which could be helpful and useful to aid developers in preventing, detecting, debugging and fixing of program defects in DL related jobs. This taxonomy includes five categories in deep learning specific failures  coming from GitHub issues and Stack Overflow quessions and three categories raised from industrial side serving as a practicle supplementary. Additinally, I'd like to greatly thank two significant research papers which had a big impact on this summary.*
+*The goal of this summary is to build a taxonomy of real faults in deep learning(DL) systems which could be helpful and useful to aid developers from all over the world in preventing, detecting, debugging, fixing of program defects in DL related jobs and increasing an accuracy of a model's performance.  This taxonomy includes five categories in deep learning specific failures  coming from GitHub issues and Stack Overflow quessions and three categories raised from industrial side serving as a practicle supplementary. Additinally, I'd like to greatly thank two significant research papers which had a big impact on this summary. People holding differnet thoughts are welcomed to provide suggestions to further improve this file as it's done on my own in a short time and may have imperfections. Finally, I sincerely hope this paper can provide an influencial guidance and help in your work.Thank you!*
 
 1. An Empirical Study on Program Failures of Deep Learning Jobs written by Ru Z., Wencong X., Hongyu Z., Yu L., Haoxiang L., Mao Y.
 2. Taxonomy of Real Faults in Deep Learning Systems written by Nargiz H., Gunel J., Gabriele B., Vincenzo R., Andrea S., and Paolo T.  
@@ -10,7 +10,7 @@
 *This summary includes three parts:* 
 * A description of DL faults which is introduced in this README file
 * Wrong code associated with mentioned DL faults 
-* Corrected code derived from false version(Please note that the last two parts are written separately in an independent file for your convenience to check)
+* Corrected code derived from false version(Please note that the last two parts are written separately in an independent file for your convenience to check code specifically)
 
 ## **Part I: Possible Faults Occured in DL Systems** ##
 
@@ -25,8 +25,6 @@ _ |  Model Types&Properties
         
 
 > __Model__
-
-
 
 Failure Descriptions:
 
@@ -69,6 +67,9 @@ Since we have so many activation functions, we need some logic to know which act
 * Missing softmax activation function
 * Missing ReLU activation function
 > Layer Properties
+
+eg. Due to some layers' incorrect inner properties like its input and output shape, input sample size and number of nuerons, training and validation speed could be very slow.
+
 * Wrong input sample size for linear layer
 * Wrong defined input shape
 * Wrong defined output shape
@@ -79,6 +80,9 @@ Since we have so many activation functions, we need some logic to know which act
 * Wrong amount and type of pooling in convolutional layer
 * Layers’ dimensions mismatch
 > Missing/Redundant/Wrong Layer
+
+eg.layers not suited for the type of input they are processing. Please note that this fault represents a layer misplaced or mistakenly selected to get a low accuracay. The solution here is to add, remove or change a type of specific layer to improve the performance, rather than changing the whole model.  
+
 * Missing dropout layer
 * Missing normalisation layer
 * Missing softmax layer
@@ -90,9 +94,13 @@ Since we have so many activation functions, we need some logic to know which act
 * Wrong type of pooling layer
 
 > @Model Types& Properties
-* Wrong model initialisation
+
+eg. This category of faults may affect the structure and properties of a DL model as a whole, rather than its individual aspects or components
+
+* Wrong model initialisation eg. incorrect initialisation of a model may lead to the instability of the gradients
+
 * Wrong weights initialisation
-* Wrong selection of model eg. A recurrent network was used instead of a convolutional network which requires the latter
+* Wrong selection of model type eg. A recurrent network was used instead of a convolutional network which requires the latter
 * Wrong network architecture
 * Suboptimal network structure eg. too many layers are used, causing suboptimal structure which in turn leads to poor performance of the model
 * Multiple initialisations of CNN
@@ -107,29 +115,38 @@ _ | Wrong Tensor Shape
 
 > __Tensor&Inputs__
 
+eg.  A faulty behaviour results from data with incompatible format,type or shape being used as an input to a layer or a method.
+
 Failture Descriptions:
 
 > @Wrong Input
 > Wrong Input Format
 
-eg.  A faulty behaviour results from data with incompatible format,type or shape being used as an input to a layer or a method.
+eg. a wrong data structure
+
 * Wrong input format
 * Wrong input format for RNN
 * Wrong format of passed weights
 * Incompatible tensor type
 
-> Wrong shape of Input Data
+> Wrong shape of Input Data eg. a tensor of size 5*5 instead of 5*10
 * Wrong shape of input data for a method
 * Wrong shape of input data for a layer
 * Wrong shape of input data
 
 > Wrong Type of Input Data
+
+eg. string instead of float
+
 * Wrong type of input data for a method
 * Wrong type of input data for a layer
 * Wrong type of input data
 
 
 > @Wrong Tensor Shape
+
+eg. tensors with incompatible shapes or a single tensor with incorrectly defined shape are operated
+
 * Wrong tensor shape (missing squeeze)
 * Wrong tensor shape ( wrong indexing )
 * Wrong tensor shape ( wrong output padding )
@@ -152,6 +169,9 @@ Failure Descriptions:
 > @Preprocessing of Training Data
 
 > Missing preprocessing step
+
+eg. A preprocessing step can help achieve a better performance but it has not been applied at all 
+
 * Subsampling
 * Normalisation
 * Input scaling
@@ -161,7 +181,11 @@ Failure Descriptions:
 * Padding
 * Data shuffling
 * interpolation...
+
 > Wrong preprocessing step
+
+eg. A preporcessing step has been applied but it is of an unsuitable type or applied in a wrong way
+
 * Pixel encoding
 * Padding
 * Text segmentation
@@ -181,9 +205,12 @@ eg. not enough training set/unbalanced training data (one or more classes in a d
 * Small range of values for a feature
 * Discarding important features
 >@Training Process
+
+eg. Faults occur during the process of training for example too more pictures are added resulting in overfitting of the network problem
+
 * Wrong management of memory resources
 * Reference for non-existing checkpoint
-* Model too big to fitinto available memory
+* Model too big to fit into available memory
 * Missing data augmentation
 * Redundant data augmentation
 >@Optimiser
@@ -196,7 +223,8 @@ eg. selection of an unsuited optimisation function for model training
 >@ Loss Function
 * Wrong loss function calculation
 * Missing masking of invalid values to zero
-* Wrong selection of loss function
+* Wrong selection of loss function eg. wrong selection of a loss function may not precisely solve the optimisation goals that a model supposedly acchieves and thus, some error can result in a suboptimal and even faulty behaviour
+
 * Missing loss function
 >@ Validation/Testing
 
@@ -205,6 +233,9 @@ eg. bad choice of performance metrics or faulty split of data into training and 
 * Wrong performance metric
 * Incorrect train/test data split
 >@ Hyperparameters
+
+eg. incorrect hyperparameters can greatly affect its training time and overall performance.
+
 * Suboptimal hyperparameters tuning
 * Suboptimal learning rate
 * Data batching required
