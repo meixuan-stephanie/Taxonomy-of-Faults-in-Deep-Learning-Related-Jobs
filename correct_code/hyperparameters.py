@@ -31,7 +31,7 @@ plot_the_loss_curve(epochs, rmse)
 #As you can see, our output loss is greatly reduced by increasing number of epochs. There's one trick that the training may have not been finished when the loss curve has not converged or the loss value is quite large. The most efficient way to resolve the issue is that you increase the number of epochs to have the model trained sufficiently.
 
 #2
-learning_rate=0.01
+learning_rate=0.01 #this value is changed
 epochs=500
 my_batch_size=12
 
