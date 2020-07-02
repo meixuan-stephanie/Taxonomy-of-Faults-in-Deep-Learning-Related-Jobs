@@ -96,4 +96,4 @@ plot_the_loss_curve(epochs, rmse)
 #For real-world datasets consisting of a very large number of examples, the entire dataset might not fit into memory. In such cases, you'll need to reduce the batch size to enable a batch to fit into memory.
 
 
-#Special thanks to google education for inspiring me on knowledge in this file
+#Special thanks to google education for inspiring me on knowledge in this chapter
