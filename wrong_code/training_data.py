@@ -127,3 +127,10 @@ predict_house_values(15, my_feature, my_label)
 #    2    112             224
 #    2     95             219
 #    2     69             210
+
+#Yes, the new output shown above is still not making a huge progress.
+#But this is just to serve an additional trick when a bad model is still there although you have trained many times using all features stated in the data set 
+
+#Don't be panic and sad. You now may be concerned about a variety of features selection after knowing the existence of a synthetic feature
+#There's an efficient way to pick a good feature before bainstorming
+#Please refer to the same topic in another folder named correct_code
