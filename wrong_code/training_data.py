@@ -41,3 +41,38 @@ plot_the_loss_curve(epochs, rmse)
 #567/567 [==============================] - 1s 962us/step - loss: 15484.0674 - root_mean_squared_error: 124.4350
 #Epoch 30/30
 #567/567 [==============================] - 1s 947us/step - loss: 15296.4248 - root_mean_squared_error: 123.6787
+
+#You may find the loss from this model is extremely large. And the graph generated from the output has many randomly distributed points.
+#As a result, you may get differnt large loss balues each time you train this model. A more detailed result will be showed by making predictions with this model
+
+def predict_house_values(n, feature, label):
+  """Predict house values based on a feature."""
+
+  batch = training_df[feature][10000:10000 + n]
+  predicted_values = my_model.predict_on_batch(x=batch)
+
+  print("feature   label          predicted")
+  print("  value   value          value")
+  print("          in thousand$   in thousand$")
+  print("--------------------------------------")
+  for i in range(n):
+    print ("%5.0f %6.0f %15.0f" % (training_df[feature][10000 + i],
+                                   training_df[label][10000 + i],
+                                   predicted_values[i][0] ))
+  predict_house_values(10, my_feature, my_label)
+  
+  #output
+  feature   label          predicted
+  value   value          value
+          in thousand$   in thousand$
+--------------------------------------
+    2     53             188
+    2     92             200
+    2     69             195
+    2     62             211
+    1     80             186
+    2    295             225
+    2    500             210
+    2    342             223
+    4    118             287
+    2    128             214
