@@ -85,4 +85,45 @@ def predict_house_values(n, feature, label):
 #the prediction will not change so much as the feature selected doesn't correlate with this label perfectly.
 
 #You are also free to try different features within the data set after the first feature you chose is not suitable for your model
-#For example, "population" can be picked and it can give you a better result compared to the previous one
+#For example, "population" can be picked and it can give you a slightly better result compared to the previous one
+
+#Unfortunately, the model's predictive ability is still not as good as you expect after trying using a new feature
+#Brainstorm may be important when you define a synthetic feature, you can just use "rooms_per_person" by combining two features applied above.
+#Remember to tune your hyperparameters respectively
+
+training_df["rooms_per_person"] = training_df["total_rooms"] / training_df["population"]
+my_feature = "rooms_per_person" #a new feature applied
+
+# Tune the hyperparameters.
+learning_rate = 0.06
+epochs = 24
+batch_size = 30
+
+my_model = build_model(learning_rate)
+weight, bias, epochs, mae = train_model(my_model, training_df,
+                                        my_feature, my_label,
+                                        epochs, batch_size)
+
+plot_the_loss_curve(epochs, mae)
+predict_house_values(15, my_feature, my_label)
+
+#output
+#feature   label          predicted
+#  value   value          value
+#          in thousand$   in thousand$
+#--------------------------------------
+#    2     53             188
+#    2     92             200
+#    2     69             195
+#    2     62             211
+#    1     80             186
+#    2    295             225
+#    2    500             210
+#    2    342             223
+#    4    118             287
+#    2    128             214
+#    2    187             224
+#    3     80             234
+#    2    112             224
+#    2     95             219
+#    2     69             210
