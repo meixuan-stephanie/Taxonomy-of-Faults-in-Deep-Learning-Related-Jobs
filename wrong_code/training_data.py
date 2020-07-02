@@ -1,7 +1,8 @@
 # Part III Correct code (Please note that only partial code is included for the emphasis of topics and the specific part needs to be changed and has been changed is marked with a sign and descriptions)
 
 # @Training data examples
-#A short preview of the data set is shown below
+
+#A short preview of the data set is shown below and basically we want to predict a house value by giving some chosen feature
 #           longitude	latitude	housing_median_age	total_rooms	total_bedrooms	population	households	median_income	median_house_value
 #0	        -114.3	      34.2	           15.0.     	5612.0	          1283.0	     1015.0	   472.0	       1.5	          66.9
 #1	        -114.5.     	34.4	           19.0	      7650.0	          1901.0	     1129.0	   463.0	       1.8	          80.1
@@ -9,13 +10,14 @@
 #3	        -114.6	      33.6	           14.0	      1501.0	           337.0	      515.0	   226.0	       3.2	          73.4
 #4	        -114.6	      33.6	           20.0	      1454.0	           326.0	      624.0	   262.0	       1.9	          65.5
 
+#A wrong selection of features can have a huge effect on your model's accuracy
 #1
 learning_rate = 0.01
 epochs = 30
 batch_size = 30
 
 
-my_feature = "total_rooms"  
+my_feature = "total_rooms"  # Specify the feature and the label.In this case, we chose "total rooms"
 my_label="median_house_value" 
 my_model = None
 
@@ -61,18 +63,26 @@ def predict_house_values(n, feature, label):
                                    predicted_values[i][0] ))
   predict_house_values(10, my_feature, my_label)
   
-  #output
-  feature   label          predicted
-  value   value          value
-          in thousand$   in thousand$
---------------------------------------
-    2     53             188
-    2     92             200
-    2     69             195
-    2     62             211
-    1     80             186
-    2    295             225
-    2    500             210
-    2    342             223
-    4    118             287
-    2    128             214
+#output
+#  feature   label          predicted
+#  value   value          value
+#          in thousand$   in thousand$
+#--------------------------------------
+#    2     53             188
+#    2     92             200
+#    2     69             195
+#    2     62             211
+#    1     80             186
+#    2    295             225
+#    2    500             210
+#    2    342             223
+#    4    118             287
+#    2    128             214
+
+#According to the output above, most of the predicted values differ from the label value
+#By the way, you may say only ten examples are given are not precise to state whether a model's ability is good or bad
+#You may feel free to vary the example number, however, regardless of how many values you will set there in this case
+#the prediction will not change so much as the feature selected doesn't correlate with this label perfectly.
+
+#You are also free to try different features within the data set after the first feature you chose is not suitable for your model
+#For example, "population" can be picked and it can give you a better result compared to the previous one
